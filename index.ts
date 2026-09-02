@@ -1,1 +1,3 @@
-export * from './src/main';
+export * from './src/macro';
+
+export * from './src/tellraw';
