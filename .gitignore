@@ -2,7 +2,7 @@ node_modules
 .env
 .sandstone
 resources/cache
-src/index.ts
+src/index
 .temp/
 # Symlink to ../sandstone/patches/ for bun link workaround
 /patches
