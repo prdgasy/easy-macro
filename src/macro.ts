@@ -1,17 +1,16 @@
-import { MacroTellrawClass } from "./tellraw";
+import { DataPointClass, Score } from "sandstone";
 
 export type Macroable<T> = T | MacroClass;
-
-
+export type CanBeMacro = DataPointClass | Score;
 export class MacroClass {
   static pendingMacroArgs: MacroClass[] = [];
 
   static id: number = 0;
 
   key: string;
-  value: any;
+  value: CanBeMacro;
 
-  constructor(value: any) {
+  constructor(value: CanBeMacro) {
     this.value = value;
 
     MacroClass.id++;
@@ -25,38 +24,15 @@ export class MacroClass {
   }
 }
 
-// 1. 🟢 On ajoute les surcharges (Overloads) pour guider TypeScript
-export function macro(strings: TemplateStringsArray, ...values: any[]): string;
-export function macro(value: any): MacroClass;
+export function macro(strings: TemplateStringsArray, ...values: any[]): string {
+  let result = strings[0];
+  console.log(strings, values);
+  for (let i = 0; i < values.length; i++) {
+    const v = values[i];
 
-// 🟢 Fonction hybride qui gère l'appel normal ET le Tagged Template
-export function macro(stringsOrValue: any, ...values: any[]): any {
-  // 1. Si appelée comme Tagged Template Literal: $`texte ${valeur}`
-  if (Array.isArray(stringsOrValue) && 'raw' in stringsOrValue) {
-    const strings = stringsOrValue as TemplateStringsArray;
-    let result = strings[0];
-
-    for (let i = 0; i < values.length; i++) {
-      let val = values[i];
-
-      if (val instanceof MacroClass) {
-        // C'est déjà une macro, on ne fait rien de plus
-
-      } else if (typeof val === 'function' || (val !== null && typeof val === 'object' && !Array.isArray(val))) {
-        // C'est un Score ou un Data Point (objet non array), on l'encapsule !
-        val = new MacroClass(val);
-      }
-
-      result += String(val) + strings[i + 1];
-    }
-
-    return result; // Retourne "Level $(macroArg_0)"
+    const isMacro = (v instanceof DataPointClass) || (v instanceof Score);
+    result += String(isMacro ? new MacroClass(v) : v) + strings[i + 1];
   }
 
-  // 2. Appel classique : $(valeur)
-  if (stringsOrValue instanceof MacroClass) {
-    throw Error(`${stringsOrValue} is already a Macro.`);
-  }
-
-  return new MacroClass(stringsOrValue);
+  return result;
 }
