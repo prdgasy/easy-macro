@@ -10,6 +10,6 @@ MCFunction('load', () => {
   ]);
 
   richTellraw([
-    $`Hello world 2 ${Variable(0)}`
+    $`Helworld 2 ${Variable(0)}`
   ])
 }, { runOnLoad: true })
