@@ -2,10 +2,10 @@ node_modules/
 .env
 .sandstone/
 resources/cache/
-./src/index.ts
-./lib/
-./spyglass.json
-./package.json
-./tsconfig.json
-./CLAUDE.md
+src/test.ts
+lib/
+spyglass.json
+tsconfig.json
+CLAUDE.md
+
 .temp/
