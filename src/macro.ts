@@ -26,7 +26,6 @@ export class MacroClass {
 
 export function macro(strings: TemplateStringsArray, ...values: any[]): string {
   let result = strings[0];
-  console.log(strings, values);
   for (let i = 0; i < values.length; i++) {
     const v = values[i];
 
