@@ -18,7 +18,10 @@ export class MacroTellrawClass {
   }
 
   private serializeTextComponents(): string {
-    const formattedComponents = this.textComponents.map(s => `{text: "${s}"}`);
+    const formattedComponents = this.textComponents.map(s => {
+      const sanitized = String(s).replace(/\r?\n/g, '\\n');
+      return `{text: "${sanitized}"}`;
+    });
     return `[${formattedComponents.join(', ')}]`;
   }
 
