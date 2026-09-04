@@ -30,7 +30,7 @@ export function macro(strings: TemplateStringsArray, ...values: any[]): string {
     const v = values[i];
 
     const isMacro = (v instanceof DataPointClass) || (v instanceof Score);
-    result += String(isMacro ? new MacroClass(v) : v) + strings[i + 1];
+    result += String(isMacro ? new MacroClass(v) : v) + strings.raw[i + 1];
   }
 
   return result;

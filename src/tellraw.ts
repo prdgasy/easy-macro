@@ -10,7 +10,7 @@ export class MacroTellrawClass {
 
   constructor(textComponents: Macroable<string>[], player?: Macroable<SelectorClass | string>) {
     this.textComponents = textComponents;
-    this.player = player ?? '@s';
+    this.player = player ?? '@a';
 
     MacroTellrawClass.instanceCounter++;
     this.storageTarget = Data('storage', '__macro', 'tellraw')
