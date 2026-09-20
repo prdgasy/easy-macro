@@ -14,7 +14,7 @@ export class MacroClass {
     this.value = value;
 
     MacroClass.id++;
-    this.key = `EasyMacro_${MacroClass.id}`;
+    this.key = `easymacro_param_${MacroClass.id}`;
 
     MacroClass.pendingMacroArgs.push(this);
   }

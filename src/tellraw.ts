@@ -2,7 +2,7 @@ import { SelectorClass, MCFunction, functionCmd, Data, DataPointClass, raw } fro
 import { Macroable, MacroClass } from "./macro";
 
 
-export class MacroTellrawClass {
+export class PGTellrawClass {
   private static instanceCounter: number = 0;
   player: Macroable<SelectorClass | string>;
   textComponents: Macroable<string>[];
@@ -12,9 +12,9 @@ export class MacroTellrawClass {
     this.textComponents = textComponents;
     this.player = player ?? '@a';
 
-    MacroTellrawClass.instanceCounter++;
-    this.storageTarget = Data('storage', '__macro', 'tellraw')
-      .select(`tellraw_${MacroTellrawClass.instanceCounter}`);
+    PGTellrawClass.instanceCounter++;
+    this.storageTarget = Data('storage', 'prodigelib:prodigelib', 'tellraw')
+      .select(`tellraw_${PGTellrawClass.instanceCounter}`);
   }
 
   private serializeTextComponents(): string {
@@ -33,7 +33,7 @@ export class MacroTellrawClass {
     }
 
     if (MacroClass.pendingMacroArgs.length > 0) {
-      const macroFunction = MCFunction(`__easy_macro/tellraw/${MacroTellrawClass.instanceCounter}`, () => {
+      const macroFunction = MCFunction(`__lib/easymacro/tellraw/${PGTellrawClass.instanceCounter}`, () => {
         raw(`$tellraw ${this.player} ${formattedJson}`);
       });
 
@@ -51,9 +51,9 @@ export class MacroTellrawClass {
 /**
  * Fonction helper d'exécution pour envoyer un tellraw compatible avec les macros
  */
-export function richTellraw(
+export function PGTellraw(
   textComponents: Macroable<string>[],
   player?: Macroable<SelectorClass | string>
 ) {
-  return new MacroTellrawClass(textComponents, player).build();
+  return new PGTellrawClass(textComponents, player).build();
 }
